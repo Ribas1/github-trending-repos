@@ -1,0 +1,47 @@
+apply from: file("$rootDir/versions.gradle")
+
+ext {
+    google = [
+            appCompat:                          "androidx.appcompat:appcompat:$versions.androidX",
+            constraintLayout:                   "androidx.constraintlayout:constraintlayout:$versions.constraintLayout",
+            coreKtx:                            "androidx.core:core-ktx:$versions.ktx",
+            coreTesting:                        "androidx.arch.core:core-testing:$versions.coreTesting",
+            lifecycleExtensions:                "androidx.lifecycle:lifecycle-extensions:$versions.lifecycleExtensions",
+            navigationFragment:                 "androidx.navigation:navigation-fragment-ktx:$versions.navigation",
+            navigationSafeArgs:                 "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigation",
+            navigationUi:                       "androidx.navigation:navigation-ui-ktx:$versions.navigation",
+            recyclerView:                       "androidx.recyclerview:recyclerview:$versions.recyclerView",
+            testCore:                           "androidx.test:core:$versions.testCore",
+            testJunit:                          "androidx.test.ext:junit:$versions.androidXJunit",
+            testRules:                          "androidx.test:rules:$versions.testRules",
+            testRunner:                         "androidx.test:runner:$versions.testRunner"
+    ]
+
+    di = [
+            koin:                               "org.koin:koin-android:$versions.koin",
+            koinViewModel:                      "org.koin:koin-androidx-viewmodel:$versions.koin"
+    ]
+
+    reactive = [
+            android:                            "io.reactivex.rxjava3:rxandroid:$versions.rxAndroid",
+            java:                               "io.reactivex.rxjava3:rxjava:$versions.rxJava",
+            kotlin:                             "io.reactivex.rxjava3:rxkotlin:$versions.rxKotlin"
+    ]
+
+    square = [
+            moshi:                              "com.squareup.moshi:moshi-kotlin:$versions.moshi",
+            moshiCodeGen:                       "com.squareup.moshi:moshi-kotlin-codegen:$versions.moshi",
+            okhttp:                             "com.squareup.okhttp3:logging-interceptor:$versions.okhttp",
+            retrofit:                           "com.squareup.retrofit2:retrofit:$versions.retrofit",
+            retrofitRxAdapter:                  "com.squareup.retrofit2:adapter-rxjava3:$versions.retrofit",
+            retrofitMoshiConverter:             "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
+    ]
+
+    junit = [
+            base:                               "junit:junit:$versions.junit"
+    ]
+
+    kotlin = [
+            jdk7:                               "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    ]
+}

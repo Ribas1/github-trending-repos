@@ -1,0 +1,22 @@
+ext.versions = [
+        appCompat        : "1.2.0",
+        constraintLayout : "2.0.1",
+        koin             : "2.1.5",
+        ktx              : "1.3.1",
+        moshi            : "1.9.3",
+        navigation       : "2.3.0",
+        okhttp           : "4.8.1",
+        recyclerView     : "1.1.0",
+        retrofit         : "2.9.0",
+        rxKotlin         : "3.0.0",
+        rxAndroid        : "3.0.0",
+        rxJava           : "3.0.6",
+
+        androidXJunit    : "1.1.1",
+        coreTesting      : "2.1.0",
+        junit            : "4.13",
+        mockk            : "1.10.0",
+
+        gradle           : "4.0.1",
+        kotlin           : "1.4.0"
+]

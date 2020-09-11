@@ -1,0 +1,36 @@
+apply from: file("$rootDir/project-libraries.gradle")
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation kotlin.jdk7
+
+    implementation google.appCompat
+    implementation google.constraintLayout
+    implementation google.coreKtx
+    implementation google.recyclerView
+    implementation google.lifecycleExtensions
+    implementation google.navigationFragment
+    implementation google.navigationUi
+
+    implementation reactive.android
+    implementation reactive.java
+    implementation reactive.kotlin
+
+    implementation square.moshi
+    implementation square.moshiCodeGen
+    implementation square.okhttp
+    implementation square.retrofit
+    implementation square.retrofitRxAdapter
+    implementation square.retrofitMoshiConverter
+
+    implementation di.koin
+    implementation di.koinViewModel
+
+    testImplementation junit.base
+    testImplementation google.coreTesting
+    androidTestImplementation google.testJunit
+
+    implementation project(path: ':domain')
+    implementation project(path: ':data')
+}

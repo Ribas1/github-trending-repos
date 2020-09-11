@@ -1,0 +1,19 @@
+apply from: file("$rootDir/project-libraries.gradle")
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':domain')
+    implementation kotlin.jdk7
+    implementation di.koin
+    implementation reactive.android
+    implementation reactive.java
+    implementation reactive.kotlin
+    implementation square.moshi
+    implementation square.okhttp
+    implementation square.retrofit
+    implementation square.retrofitRxAdapter
+    implementation square.retrofitMoshiConverter
+
+    kapt square.moshiCodeGen
+}
