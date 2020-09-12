@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.pedroribeiro.domain.TrendingRepoRepository
 import com.pedroribeiro.domain.models.RepositoryDomainModel
 import com.pedroribeiro.trendingkotlinrepos.common.BaseViewModel
+import com.pedroribeiro.trendingkotlinrepos.common.SingleLiveEvent
 import com.pedroribeiro.trendingkotlinrepos.mappers.RepositoryModelMapper
 import com.pedroribeiro.trendingkotlinrepos.models.RepositoryUiModel
 
@@ -14,7 +15,7 @@ class HomeViewModel(
     private val repositoryModelMapper: RepositoryModelMapper
 ) : BaseViewModel() {
 
-    private val _navigation = MutableLiveData<Navigation>()
+    private val _navigation = SingleLiveEvent<Navigation>()
     val navigation: LiveData<Navigation> = _navigation
 
     private val _repositories = MutableLiveData<List<RepositoryUiModel>>()
