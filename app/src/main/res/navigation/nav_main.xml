@@ -8,6 +8,20 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.pedroribeiro.trendingkotlinrepos.home.HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_from_home_to_details"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.pedroribeiro.trendingkotlinrepos.details.DetailsFragment"
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="repositoryModel"
+            app:argType="com.pedroribeiro.trendingkotlinrepos.models.RepositoryUiModel"
+            app:nullable="false" />
+    </fragment>
 
 </navigation>
