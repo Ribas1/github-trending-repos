@@ -1,5 +1,8 @@
 package com.pedroribeiro.data.models
 
+import com.pedroribeiro.domain.models.BuiltByDomainModel
+import com.pedroribeiro.domain.models.RepositoryDomainModel
+import com.pedroribeiro.domain.models.TrendingRepositoryDomainModel
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Json
 
@@ -27,7 +30,23 @@ data class TrendingRepositoriesEntity(
     val stars: Int,
     @Json(name = "url")
     val url: String
-)
+) {
+    fun mapToDomain() = RepositoryDomainModel(
+        author,
+        avatar,
+        builtBy.map {
+            it.mapToDomain()
+        },
+        currentPeriodStars,
+        description,
+        forks,
+        language,
+        languageColor,
+        name,
+        stars,
+        url
+    )
+}
 
 @JsonClass(generateAdapter = true)
 data class BuiltBy(
@@ -37,4 +56,10 @@ data class BuiltBy(
     val href: String,
     @Json(name = "username")
     val username: String
-)
+) {
+    fun mapToDomain() = BuiltByDomainModel(
+        avatar,
+        href,
+        username
+    )
+}

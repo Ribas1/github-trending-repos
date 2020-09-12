@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Trending kotlin Repos</string>
+    <string name="app_name">Trending Repos</string>
+    <string name="toolbar_home_title">Trending</string>
 </resources>

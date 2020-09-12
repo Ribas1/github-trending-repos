@@ -9,7 +9,6 @@ interface Api {
     @GET("repositories")
     fun getTrendingRepositories(
         @Query("language") language: String,
-        @Query("since") since: String,
-        @Query("spokern_language_code") spokenLanguage: String
+        @Query("since") since: String
     ): Single<List<TrendingRepositoriesEntity>>
 }

@@ -2,6 +2,8 @@ package com.pedroribeiro.trendingkotlinrepos
 
 import android.app.Application
 import com.pedroribeiro.data.di.networkModule
+import com.pedroribeiro.data.di.repositoryModule
+import com.pedroribeiro.trendingkotlinrepos.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -15,7 +17,9 @@ class TrendingRepositoriesApplication : Application() {
         startKoin {
             androidContext(this@TrendingRepositoriesApplication)
             modules(
-                networkModule
+                networkModule,
+                viewModelModule,
+                repositoryModule
             )
         }
     }
