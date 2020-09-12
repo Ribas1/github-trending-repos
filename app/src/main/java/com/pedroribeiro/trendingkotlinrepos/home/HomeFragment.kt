@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.pedroribeiro.domain.models.RepositoryDomainModel
 import com.pedroribeiro.trendingkotlinrepos.R
+import com.pedroribeiro.trendingkotlinrepos.models.RepositoryUiModel
 import com.pedroribeiro.trendingkotlinrepos.ui.ItemSpaceDecorator
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,7 +17,9 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModel()
     private val trendingRepositoriesAdapter: TrendingRepositoriesAdapter by lazy {
-        TrendingRepositoriesAdapter()
+        TrendingRepositoriesAdapter {
+            repo: RepositoryUiModel -> viewModel.onRepositoryClick(repo)
+        }
     }
 
     override fun onCreateView(
@@ -51,7 +53,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun onRepositories(repos: List<RepositoryDomainModel>) {
+    private fun onRepositories(repos: List<RepositoryUiModel>) {
         trendingRepositoriesAdapter.setData(repos)
     }
 
