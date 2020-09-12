@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.pedroribeiro.domain.models.RepositoryDomainModel
 import com.pedroribeiro.trendingkotlinrepos.R
 import kotlinx.android.synthetic.main.item_repository.view.*
@@ -39,6 +40,9 @@ class TrendingRepositoriesViewHolder(view: View) : RecyclerView.ViewHolder(view)
     fun bind(repository: RepositoryDomainModel) {
         itemView.tv_item_repo_title.text = repository.name
         itemView.tv_item_repo_description.text = repository.description
+        Glide.with(itemView.context)
+            .load(repository.avatar)
+            .into(itemView.iv_avatar)
     }
 
 }

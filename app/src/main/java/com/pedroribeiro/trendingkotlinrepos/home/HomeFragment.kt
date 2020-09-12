@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pedroribeiro.domain.models.RepositoryDomainModel
 import com.pedroribeiro.trendingkotlinrepos.R
+import com.pedroribeiro.trendingkotlinrepos.ui.ItemSpaceDecorator
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -55,9 +56,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        with (rv_repositories) {
+        with(rv_repositories) {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = trendingRepositoriesAdapter
+            addItemDecoration(ItemSpaceDecorator(resources.getDimensionPixelSize(R.dimen.item_spacing)))
         }
     }
 }

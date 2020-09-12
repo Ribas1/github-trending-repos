@@ -3,4 +3,6 @@
     <dimen name="toolbar_height">55dp</dimen>
     <dimen name="item_avatar_size">80dp</dimen>
     <dimen name="item_outer_margin">16dp</dimen>
+    <dimen name="item_spacing">8dp</dimen>
+    <dimen name="default_margin">8dp</dimen>
 </resources>
