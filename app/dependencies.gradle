@@ -13,6 +13,8 @@ dependencies {
     implementation google.navigationFragment
     implementation google.navigationUi
 
+    implementation bumptech.glide
+
     implementation reactive.android
     implementation reactive.java
     implementation reactive.kotlin
