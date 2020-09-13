@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pedroribeiro.trendingkotlinrepos.R
 import com.pedroribeiro.trendingkotlinrepos.common.BaseFragment
 import com.pedroribeiro.trendingkotlinrepos.models.RepositoryUiModel
-import com.pedroribeiro.trendingkotlinrepos.ui.ItemSpaceDecorator
+import com.pedroribeiro.trendingkotlinrepos.ui.VerticalItemSpaceDecorator
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -82,7 +81,7 @@ class HomeFragment : BaseFragment() {
         with(rv_repositories) {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = trendingRepositoriesAdapter
-            addItemDecoration(ItemSpaceDecorator(resources.getDimensionPixelSize(R.dimen.item_spacing)))
+            addItemDecoration(VerticalItemSpaceDecorator(resources.getDimensionPixelSize(R.dimen.item_spacing)))
         }
     }
 }

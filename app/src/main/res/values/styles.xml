@@ -17,4 +17,24 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <style name="DetailsTitleTextStyle">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="DetailsTextBigTextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="DetailsTextBigDarkTextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="DetailsRegularTextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
 </resources>
