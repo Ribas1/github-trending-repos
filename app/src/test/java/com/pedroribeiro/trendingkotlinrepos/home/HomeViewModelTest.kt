@@ -3,8 +3,10 @@ package com.pedroribeiro.trendingkotlinrepos.home
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import com.pedroribeiro.data.network.exceptions.EmptyDatabaseException
 import com.pedroribeiro.domain.repositories.TrendingRepoRepository
 import com.pedroribeiro.domain.models.RepositoryDomainModel
+import com.pedroribeiro.domain.usecases.GetTrendingReposUseCase
 import com.pedroribeiro.trendingkotlinrepos.utils.LifecycleOwnerUtils
 import com.pedroribeiro.trendingkotlinrepos.mappers.RepositoryModelMapper
 import com.pedroribeiro.trendingkotlinrepos.models.RepositoryUiModel
@@ -23,14 +25,14 @@ class HomeViewModelTest {
     val rule = InstantTaskExecutorRule()
 
     private lateinit var viewModel: HomeViewModel
-    private val repoRepository = mockk<TrendingRepoRepository>(relaxed = true)
+    private val getTrendingReposUseCase = mockk<GetTrendingReposUseCase>(relaxed = true)
     private val repoModelMapper = mockk<RepositoryModelMapper>(relaxed = true)
     private val lifecycleOwner = mockk<LifecycleOwner>(relaxed = true)
 
     @Before
     fun setup() {
         viewModel = HomeViewModel(
-            repoRepository,
+            getTrendingReposUseCase,
             repoModelMapper,
             TrampolineSchedulerProviderImpl()
         )
@@ -43,7 +45,7 @@ class HomeViewModelTest {
         val mockedTrendingRepoDomainModel =
             mockk<List<RepositoryDomainModel>>(relaxed = true)
         viewModel.repositories.observe(lifecycleOwner, observer)
-        every { repoRepository.getTrendingRepos() } returns Single.just(
+        every { getTrendingReposUseCase.execute() } returns Single.just(
             mockedTrendingRepoDomainModel
         )
         val uiModel = repoModelMapper.mapToUi(mockedTrendingRepoDomainModel)
@@ -56,15 +58,28 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `GIVEN user opened app WHEN home fragment is attached THEN get trending kotlin repositories with an error`() {
-        val observer = mockk<Observer<Unit>>(relaxed = true)
+    fun `GIVEN user opened app WHEN home fragment is attached THEN get trending kotlin repositories with a generic error`() {
+        val observer = mockk<Observer<HomeViewModel.Error>>(relaxed = true)
         viewModel.error.observe(lifecycleOwner, observer)
-        every { repoRepository.getTrendingRepos() } returns Single.error(Throwable())
+        every { getTrendingReposUseCase.execute() } returns Single.error(Throwable())
 
         viewModel.getTrendingRepos()
 
         verify {
-            observer.onChanged(Unit)
+            observer.onChanged(HomeViewModel.Error.Generic)
+        }
+    }
+
+    @Test
+    fun `GIVEN user opened app WHEN home fragment is attached THEN get trending kotlin repositories from database and it's empty`() {
+        val observer = mockk<Observer<HomeViewModel.Error>>(relaxed = true)
+        viewModel.error.observe(lifecycleOwner, observer)
+        every { getTrendingReposUseCase.execute() } returns Single.error(EmptyDatabaseException())
+
+        viewModel.getTrendingRepos()
+
+        verify {
+            observer.onChanged(HomeViewModel.Error.EmptyDatabase)
         }
     }
 
