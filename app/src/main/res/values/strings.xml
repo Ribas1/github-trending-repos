@@ -6,4 +6,6 @@
     <string name="details_forks">Forks: %1$d</string>
     <string name="details_stars">Stars: Period: %1$d - Total: %2$d</string>
     <string name="retry">Retry</string>
+    <string name="error_generic">Something went wrong, please try again</string>
+    <string name="error_empty_database">No repositories saved</string>
 </resources>

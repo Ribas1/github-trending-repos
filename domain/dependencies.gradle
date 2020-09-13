@@ -3,6 +3,8 @@ apply from: file("$rootDir/project-libraries.gradle")
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation di.koin
+
     implementation kotlin.jdk7
 
     implementation reactive.kotlin

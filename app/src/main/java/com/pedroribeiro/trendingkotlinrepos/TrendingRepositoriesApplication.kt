@@ -4,6 +4,7 @@ import android.app.Application
 import com.pedroribeiro.data.di.databaseModule
 import com.pedroribeiro.data.di.networkModule
 import com.pedroribeiro.data.di.repositoryModule
+import com.pedroribeiro.domain.di.useCaseModule
 import com.pedroribeiro.trendingkotlinrepos.di.mapperModule
 import com.pedroribeiro.trendingkotlinrepos.di.schedulersModule
 import com.pedroribeiro.trendingkotlinrepos.di.viewModelModule
@@ -25,7 +26,8 @@ class TrendingRepositoriesApplication : Application() {
                 repositoryModule,
                 mapperModule,
                 schedulersModule,
-                databaseModule
+                databaseModule,
+                useCaseModule
             )
         }
     }

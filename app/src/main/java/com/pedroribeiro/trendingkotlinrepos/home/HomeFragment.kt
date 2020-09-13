@@ -60,8 +60,8 @@ class HomeFragment : BaseFragment() {
             )
             error.observe(
                 this@HomeFragment,
-                {
-                    onError()
+                { error ->
+                    onError(error)
                 }
             )
             loading.observe(
@@ -95,10 +95,17 @@ class HomeFragment : BaseFragment() {
         trendingRepositoriesAdapter.setData(repos)
     }
 
-    private fun onError() {
+    private fun onError(error: HomeViewModel.Error) {
+        when (error) {
+            HomeViewModel.Error.EmptyDatabase -> showSnackBar(getString(R.string.error_empty_database))
+            HomeViewModel.Error.Generic -> showSnackBar(getString(R.string.error_generic))
+        }
+    }
+
+    private fun showSnackBar(string: String) {
         Snackbar.make(
             requireView(),
-            "Something went wrong, please try again",
+            string,
             Snackbar.LENGTH_INDEFINITE
         )
             .setAction(R.string.retry) {

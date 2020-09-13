@@ -3,7 +3,7 @@ package com.pedroribeiro.trendingkotlinrepos.home
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import com.pedroribeiro.domain.TrendingRepoRepository
+import com.pedroribeiro.domain.repositories.TrendingRepoRepository
 import com.pedroribeiro.domain.models.RepositoryDomainModel
 import com.pedroribeiro.trendingkotlinrepos.utils.LifecycleOwnerUtils
 import com.pedroribeiro.trendingkotlinrepos.mappers.RepositoryModelMapper
@@ -43,7 +43,7 @@ class HomeViewModelTest {
         val mockedTrendingRepoDomainModel =
             mockk<List<RepositoryDomainModel>>(relaxed = true)
         viewModel.repositories.observe(lifecycleOwner, observer)
-        every { repoRepository.getTrendingRepositories() } returns Single.just(
+        every { repoRepository.getTrendingRepos() } returns Single.just(
             mockedTrendingRepoDomainModel
         )
         val uiModel = repoModelMapper.mapToUi(mockedTrendingRepoDomainModel)
@@ -59,7 +59,7 @@ class HomeViewModelTest {
     fun `GIVEN user opened app WHEN home fragment is attached THEN get trending kotlin repositories with an error`() {
         val observer = mockk<Observer<Unit>>(relaxed = true)
         viewModel.error.observe(lifecycleOwner, observer)
-        every { repoRepository.getTrendingRepositories() } returns Single.error(Throwable())
+        every { repoRepository.getTrendingRepos() } returns Single.error(Throwable())
 
         viewModel.getTrendingRepos()
 

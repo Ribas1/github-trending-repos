@@ -1,9 +1,5 @@
 package com.pedroribeiro.domain.models
 
-data class TrendingRepositoryDomainModel(
-    val repositories: List<RepositoryDomainModel>
-)
-
 data class RepositoryDomainModel(
     val author: String,
     val avatar: String,

@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.pedroribeiro.data.models.TrendingRepositoriesEntity
+import retrofit2.http.DELETE
 
 @Dao
 interface TrendingReposDao {
@@ -12,5 +13,8 @@ interface TrendingReposDao {
     fun getTrendingRepos(): List<TrendingRepositoriesEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveRepos(repos: List<TrendingRepositoriesEntity>)
+    fun saveRepos(repos: List<TrendingRepositoriesEntity>): List<Long>
+
+    @Query("DELETE FROM repositories")
+    fun deleteRepos(): Int
 }

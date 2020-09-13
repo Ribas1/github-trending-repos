@@ -2,9 +2,9 @@ package com.pedroribeiro.trendingkotlinrepos.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.pedroribeiro.domain.TrendingRepoRepository
-import com.pedroribeiro.domain.models.RepositoryDomainModel
+import com.pedroribeiro.data.network.exceptions.EmptyDatabaseException
+import com.pedroribeiro.domain.repositories.TrendingRepoRepository
+import com.pedroribeiro.domain.usecases.GetTrendingReposUseCase
 import com.pedroribeiro.trendingkotlinrepos.common.BaseViewModel
 import com.pedroribeiro.trendingkotlinrepos.common.SingleLiveEvent
 import com.pedroribeiro.trendingkotlinrepos.mappers.RepositoryModelMapper
@@ -12,7 +12,7 @@ import com.pedroribeiro.trendingkotlinrepos.models.RepositoryUiModel
 import com.pedroribeiro.trendingkotlinrepos.schedulers.SchedulerProvider
 
 class HomeViewModel(
-    private val repository: TrendingRepoRepository,
+    private val useCase: GetTrendingReposUseCase,
     private val repositoryModelMapper: RepositoryModelMapper,
     schedulerProvider: SchedulerProvider
 ) : BaseViewModel(schedulerProvider) {
@@ -26,11 +26,11 @@ class HomeViewModel(
     private val _repositories = MutableLiveData<List<RepositoryUiModel>>()
     val repositories: LiveData<List<RepositoryUiModel>> = _repositories
 
-    private val _error = MutableLiveData<Unit>()
-    val error: LiveData<Unit> = _error
+    private val _error = MutableLiveData<Error>()
+    val error: LiveData<Error> = _error
 
     fun getTrendingRepos() {
-        repository.getTrendingRepositories()
+        useCase.execute()
             .doOnSubscribe { _loading.postValue(true) }
             .doFinally { _loading.postValue(false) }
             .map { repositoryModelMapper.mapToUi(it) }
@@ -49,12 +49,21 @@ class HomeViewModel(
     }
 
     private fun onGetRepositoriesFailed(throwable: Throwable) {
-        _error.postValue(Unit)
+        if (throwable is EmptyDatabaseException) {
+            _error.postValue(Error.EmptyDatabase)
+        } else {
+            _error.postValue(Error.Generic)
+        }
     }
 
     sealed class Navigation {
         data class ToRepoDetails(
             val repo: RepositoryUiModel
         ) : Navigation()
+    }
+
+    sealed class Error {
+        object EmptyDatabase : Error()
+        object Generic : Error()
     }
 }

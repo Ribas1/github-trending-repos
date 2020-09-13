@@ -1,11 +1,15 @@
 package com.pedroribeiro.data.di
 
+import com.pedroribeiro.data.db.TrendingReposDao
+import com.pedroribeiro.data.models.TrendingRepositoriesEntity
 import com.pedroribeiro.data.network.Api
-import com.pedroribeiro.domain.TrendingRepoRepository
+import com.pedroribeiro.data.network.exceptions.EmptyDatabaseException
+import com.pedroribeiro.domain.repositories.TrendingRepoRepository
 import com.pedroribeiro.domain.models.RepositoryDomainModel
 import io.reactivex.rxjava3.core.Single
 
 class TrendigRepoRepositoryImpl(
+    private val reposDao: TrendingReposDao,
     private val api: Api
 ) : TrendingRepoRepository {
 
@@ -14,15 +18,37 @@ class TrendigRepoRepositoryImpl(
         private const val SINCE = "today"
     }
 
-    override fun getTrendingRepositories(): Single<List<RepositoryDomainModel>> {
+    override fun getTrendingRepos(): Single<List<RepositoryDomainModel>> {
         return api.getTrendingRepositories(
             LANGUAGE,
             SINCE
-        ).map { entity ->
+        ).doOnSuccess { repos ->
+            saveToDb(repos)
+        }.map { entity ->
             entity.map {
                 it.mapToDomain()
             }
         }
     }
 
+    override fun getTrendingReposFromDb(): Single<List<RepositoryDomainModel>> {
+        return Single.just(reposDao.getTrendingRepos())
+            .map { entity ->
+                entity.map {
+                    it.mapToDomain()
+                }
+            }.flatMap {
+                if (it.isEmpty()) {
+                    Single.error(EmptyDatabaseException())
+                } else {
+                    Single.just(it)
+                }
+            }
+    }
+
+    private fun saveToDb(repos: List<TrendingRepositoriesEntity>) {
+         Single.just(reposDao.deleteRepos())
+            .map { deletedRows -> reposDao.saveRepos(repos) }
+            .subscribe()
+    }
 }
