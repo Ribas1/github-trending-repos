@@ -1,4 +1,4 @@
-package com.pedroribeiro.trendingkotlinrepos.home.utils
+package com.pedroribeiro.trendingkotlinrepos.utils
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner

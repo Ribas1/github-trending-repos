@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.pedroribeiro.domain.TrendingRepoRepository
 import com.pedroribeiro.domain.models.RepositoryDomainModel
-import com.pedroribeiro.trendingkotlinrepos.home.utils.LifecycleOwnerUtils
+import com.pedroribeiro.trendingkotlinrepos.utils.LifecycleOwnerUtils
 import com.pedroribeiro.trendingkotlinrepos.mappers.RepositoryModelMapper
 import com.pedroribeiro.trendingkotlinrepos.models.RepositoryUiModel
 import com.pedroribeiro.trendingkotlinrepos.schedulers.TrampolineSchedulerProviderImpl
