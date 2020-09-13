@@ -48,4 +48,9 @@ ext {
     kotlin = [
             jdk7:                               "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     ]
+
+    mockk = [
+            base:                               "io.mockk:mockk:$versions.mockk",
+            android:                            "io.mockk:mockk-android:$versions.mockk"
+    ]
 }

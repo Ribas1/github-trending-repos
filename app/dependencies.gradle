@@ -31,6 +31,7 @@ dependencies {
 
     testImplementation junit.base
     testImplementation google.coreTesting
+    testImplementation mockk.base
     androidTestImplementation google.testJunit
 
     implementation project(path: ':domain')
