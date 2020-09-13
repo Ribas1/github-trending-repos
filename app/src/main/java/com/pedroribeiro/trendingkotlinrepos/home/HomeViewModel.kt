@@ -15,6 +15,9 @@ class HomeViewModel(
     private val repositoryModelMapper: RepositoryModelMapper
 ) : BaseViewModel() {
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
+
     private val _navigation = SingleLiveEvent<Navigation>()
     val navigation: LiveData<Navigation> = _navigation
 
@@ -26,11 +29,17 @@ class HomeViewModel(
 
     fun getTrendingRepos() {
         repository.getTrendingRepositories()
+            .doOnSubscribe { _loading.postValue(true) }
+            .doOnSubscribe { _loading.postValue(false) }
             .map { repositoryModelMapper.mapToUi(it) }
             .baseSubscribe(
                 onSuccess = ::onGetRepositoriesSuccess,
                 onError = ::onGetRepositoriesFailed
             )
+    }
+
+    fun onRepositoryClick(repo: RepositoryUiModel) {
+        _navigation.postValue(Navigation.ToRepoDetails(repo))
     }
 
     private fun onGetRepositoriesSuccess(list: List<RepositoryUiModel>) {
@@ -39,10 +48,6 @@ class HomeViewModel(
 
     private fun onGetRepositoriesFailed(throwable: Throwable) {
         _error.postValue(Unit)
-    }
-
-    fun onRepositoryClick(repo: RepositoryUiModel) {
-        _navigation.postValue(Navigation.ToRepoDetails(repo))
     }
 
     sealed class Navigation {

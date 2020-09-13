@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.pedroribeiro.trendingkotlinrepos.R
 import com.pedroribeiro.trendingkotlinrepos.common.BaseFragment
+import com.pedroribeiro.trendingkotlinrepos.common.show
 import com.pedroribeiro.trendingkotlinrepos.models.RepositoryUiModel
 import com.pedroribeiro.trendingkotlinrepos.ui.VerticalItemSpaceDecorator
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -56,7 +58,23 @@ class HomeFragment : BaseFragment() {
                     onNavigation(it)
                 }
             )
+            error.observe(
+                this@HomeFragment,
+                {
+                    onError()
+                }
+            )
+            loading.observe(
+                this@HomeFragment,
+                { isLoading ->
+                    onLoading(isLoading)
+                }
+            )
         }
+    }
+
+    private fun onLoading(isLoading: Boolean) {
+        pb_repos.show(isLoading)
     }
 
     private fun onNavigation(navigation: HomeViewModel.Navigation?) {
@@ -75,6 +93,18 @@ class HomeFragment : BaseFragment() {
 
     private fun onRepositories(repos: List<RepositoryUiModel>) {
         trendingRepositoriesAdapter.setData(repos)
+    }
+
+    private fun onError() {
+        Snackbar.make(
+            requireView(),
+            "Something went wrong, please try again",
+            Snackbar.LENGTH_INDEFINITE
+        )
+            .setAction(R.string.retry) {
+                viewModel.getTrendingRepos()
+            }
+            .show()
     }
 
     private fun setupRecyclerView() {

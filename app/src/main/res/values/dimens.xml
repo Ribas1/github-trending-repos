@@ -7,4 +7,5 @@
     <dimen name="default_margin">8dp</dimen>
     <dimen name="details_avatar_size">88dp</dimen>
     <dimen name="separator_height">2dp</dimen>
+    <dimen name="progress_bar_size">38dp</dimen>
 </resources>
