@@ -32,7 +32,7 @@ class HomeViewModel(
     fun getTrendingRepos() {
         repository.getTrendingRepositories()
             .doOnSubscribe { _loading.postValue(true) }
-            .doOnSubscribe { _loading.postValue(false) }
+            .doFinally { _loading.postValue(false) }
             .map { repositoryModelMapper.mapToUi(it) }
             .baseSubscribe(
                 onSuccess = ::onGetRepositoriesSuccess,
