@@ -9,11 +9,13 @@ import com.pedroribeiro.trendingkotlinrepos.common.BaseViewModel
 import com.pedroribeiro.trendingkotlinrepos.common.SingleLiveEvent
 import com.pedroribeiro.trendingkotlinrepos.mappers.RepositoryModelMapper
 import com.pedroribeiro.trendingkotlinrepos.models.RepositoryUiModel
+import com.pedroribeiro.trendingkotlinrepos.schedulers.SchedulerProvider
 
 class HomeViewModel(
     private val repository: TrendingRepoRepository,
-    private val repositoryModelMapper: RepositoryModelMapper
-) : BaseViewModel() {
+    private val repositoryModelMapper: RepositoryModelMapper,
+    schedulerProvider: SchedulerProvider
+) : BaseViewModel(schedulerProvider) {
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading

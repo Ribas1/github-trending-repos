@@ -1,6 +1,7 @@
 package com.pedroribeiro.trendingkotlinrepos.common
 
 import androidx.lifecycle.ViewModel
+import com.pedroribeiro.trendingkotlinrepos.schedulers.SchedulerProvider
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
@@ -8,7 +9,9 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-open class BaseViewModel : ViewModel() {
+open class BaseViewModel(
+    private val schedulerProvider: SchedulerProvider
+) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -22,8 +25,8 @@ open class BaseViewModel : ViewModel() {
     }
 
     fun <T> Single<T>.baseSubscribe(
-        subscribeOn: Scheduler? = Schedulers.io(),
-        observeOn: Scheduler? = AndroidSchedulers.mainThread(),
+        subscribeOn: Scheduler? = schedulerProvider.io(),
+        observeOn: Scheduler? = schedulerProvider.ui(),
         onError: ((Throwable) -> Unit)? = null,
         onSuccess: (T) -> Unit
     ) {
