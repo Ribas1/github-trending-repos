@@ -9,6 +9,7 @@ ext.versions = [
         okhttp           : "4.8.1",
         recyclerView     : "1.1.0",
         retrofit         : "2.9.0",
+        room             : "2.2.5",
         rxKotlin         : "3.0.0",
         rxAndroid        : "3.0.0",
         rxJava           : "3.0.6",

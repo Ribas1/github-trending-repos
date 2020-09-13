@@ -14,7 +14,9 @@ ext {
             testCore:                           "androidx.test:core:$versions.testCore",
             testJunit:                          "androidx.test.ext:junit:$versions.androidXJunit",
             testRules:                          "androidx.test:rules:$versions.testRules",
-            testRunner:                         "androidx.test:runner:$versions.testRunner"
+            testRunner:                         "androidx.test:runner:$versions.testRunner",
+            roomRuntime:                        "androidx.room:room-runtime:$versions.room",
+            roomCompiler:                       "androidx.room:room-compiler:$versions.room"
     ]
 
     di = [

@@ -1,18 +1,26 @@
 package com.pedroribeiro.data.models
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.pedroribeiro.data.db.DBConverters
 import com.pedroribeiro.domain.models.BuiltByDomainModel
 import com.pedroribeiro.domain.models.RepositoryDomainModel
 import com.pedroribeiro.domain.models.TrendingRepositoryDomainModel
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Json
 
+@Entity(tableName = "repositories")
 @JsonClass(generateAdapter = true)
 data class TrendingRepositoriesEntity(
+    @PrimaryKey(autoGenerate = true) val id: Int?,
     @Json(name = "author")
     val author: String,
     @Json(name = "avatar")
     val avatar: String,
     @Json(name = "builtBy")
+    @TypeConverters(DBConverters::class)
     val builtBy: List<BuiltBy>,
     @Json(name = "currentPeriodStars")
     val currentPeriodStars: Int,
@@ -48,8 +56,10 @@ data class TrendingRepositoriesEntity(
     )
 }
 
+@Entity(tableName = "contributors")
 @JsonClass(generateAdapter = true)
 data class BuiltBy(
+    @PrimaryKey(autoGenerate = true) val id: Int?,
     @Json(name = "avatar")
     val avatar: String,
     @Json(name = "href")

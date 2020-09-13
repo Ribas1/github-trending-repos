@@ -1,6 +1,7 @@
 package com.pedroribeiro.trendingkotlinrepos
 
 import android.app.Application
+import com.pedroribeiro.data.di.databaseModule
 import com.pedroribeiro.data.di.networkModule
 import com.pedroribeiro.data.di.repositoryModule
 import com.pedroribeiro.trendingkotlinrepos.di.mapperModule
@@ -23,7 +24,8 @@ class TrendingRepositoriesApplication : Application() {
                 viewModelModule,
                 repositoryModule,
                 mapperModule,
-                schedulersModule
+                schedulersModule,
+                databaseModule
             )
         }
     }

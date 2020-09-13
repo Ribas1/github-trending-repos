@@ -5,10 +5,15 @@ dependencies {
 
     implementation project(':domain')
     implementation kotlin.jdk7
+
     implementation di.koin
+
+    implementation google.roomRuntime
+
     implementation reactive.android
     implementation reactive.java
     implementation reactive.kotlin
+
     implementation square.moshi
     implementation square.okhttp
     implementation square.retrofit
@@ -16,4 +21,6 @@ dependencies {
     implementation square.retrofitMoshiConverter
 
     kapt square.moshiCodeGen
+    kapt google.roomCompiler
+
 }
