@@ -46,6 +46,7 @@ class TrendigRepoRepositoryImpl(
             }
     }
 
+    //deleting repos before saving since i want to save only the repos for the current "search"
     private fun saveToDb(repos: List<TrendingRepositoriesEntity>) {
          Single.just(reposDao.deleteRepos())
             .map { deletedRows -> reposDao.saveRepos(repos) }
