@@ -12,7 +12,7 @@ import com.squareup.moshi.Json
 @Entity(tableName = "repositories")
 @JsonClass(generateAdapter = true)
 data class TrendingRepositoriesEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int? = null,
+    @PrimaryKey(autoGenerate = true) val id: Int?,
     @Json(name = "author")
     val author: String,
     @Json(name = "avatar")

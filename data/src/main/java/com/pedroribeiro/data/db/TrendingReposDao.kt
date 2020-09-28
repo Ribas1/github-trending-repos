@@ -14,7 +14,4 @@ interface TrendingReposDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveRepos(repos: List<TrendingRepositoriesEntity>): List<Long>
-
-    @Query("DELETE FROM repositories")
-    fun deleteRepos(): Int
 }

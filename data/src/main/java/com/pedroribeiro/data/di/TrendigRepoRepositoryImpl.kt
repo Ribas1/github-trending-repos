@@ -23,7 +23,7 @@ class TrendigRepoRepositoryImpl(
             LANGUAGE,
             SINCE
         ).doOnSuccess { repos ->
-            saveToDb(repos)
+            manageDb(repos)
         }.map { entity ->
             entity.map {
                 it.mapToDomain()
@@ -46,10 +46,7 @@ class TrendigRepoRepositoryImpl(
             }
     }
 
-    //deleting repos before saving since i want to save only the repos for the current "search"
-    private fun saveToDb(repos: List<TrendingRepositoriesEntity>) {
-         Single.just(reposDao.deleteRepos())
-            .map { deletedRows -> reposDao.saveRepos(repos) }
-            .subscribe()
+    private fun manageDb(repos: List<TrendingRepositoriesEntity>): Single<List<Long>> {
+        return Single.just(reposDao.saveRepos(repos))
     }
 }
